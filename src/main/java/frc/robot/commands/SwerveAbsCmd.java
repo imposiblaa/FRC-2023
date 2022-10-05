@@ -4,18 +4,43 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants.swerveModConstants.driveConstants;
+import frc.robot.subsystems.SwerveBaseSubsystem;
 import frc.robot.subsystems.SwerveModSubsystem;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class SwerveAbsCmd extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
+  private final SwerveBaseSubsystem m_swerveBaseSubsystem;
 
-  public SwerveAbsCmd() {
+  private final Translation2d m_frontLeftLoc;
+  private final Translation2d m_backLeftLoc;
+  private final Translation2d m_frontRightLoc;
+  private final Translation2d m_backRightLoc;
 
+  private final SwerveDriveKinematics m_swerveKinematics;
 
-    
+  
+
+  public SwerveAbsCmd(SwerveBaseSubsystem swerveBaseSubsystem) {
+
+    this.m_swerveBaseSubsystem = swerveBaseSubsystem;
+
+    m_frontLeftLoc = new Translation2d(-driveConstants.kTrack/2, driveConstants.kWheelBase/2);
+    m_backLeftLoc = new Translation2d(driveConstants.kTrack/-2, driveConstants.kWheelBase/2);
+    m_frontRightLoc = new Translation2d(driveConstants.kTrack/2, driveConstants.kWheelBase/-2);
+    m_backRightLoc = new Translation2d(driveConstants.kTrack/-2, driveConstants.kWheelBase/-2);
+
+    m_swerveKinematics = new SwerveDriveKinematics(
+      m_frontLeftLoc, m_frontRightLoc, m_backLeftLoc, m_backRightLoc
+    );
+
   }
 
   // Called when the command is initially scheduled.
@@ -24,9 +49,14 @@ public class SwerveAbsCmd extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(1, 2, 3, m_swerveBaseSubsystem.getBaseAngle());
 
-  // Called once the command ends or is interrupted.
+    SwerveModuleState[] targetStates = m_swerveKinematics.toSwerveModuleStates(speeds);
+    m_swerveBaseSubsystem.setSwerveState(targetStates);
+
+  }
+
   @Override
   public void end(boolean interrupted) {}
 

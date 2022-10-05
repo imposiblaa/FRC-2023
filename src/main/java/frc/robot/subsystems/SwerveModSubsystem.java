@@ -6,17 +6,26 @@ package frc.robot.subsystems;
 
 import java.util.List;
 
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.swerveModConstants;
+import frc.robot.Constants.swerveModConstants.driveConstants;
 
 public class SwerveModSubsystem extends SubsystemBase {
 
   private final PIDController turningPID;
+
+  //private final turningMotor;
+  private final TalonFX driveMotor;
   
-  public SwerveModSubsystem() {
+  public SwerveModSubsystem(int drivingID, int turningID) {
+
+    driveMotor = new TalonFX(drivingID);
 
     turningPID = new PIDController(swerveModConstants.kTurningP, swerveModConstants.kTurningI, swerveModConstants.kTurningD);
     turningPID.enableContinuousInput(-Math.PI, Math.PI);
@@ -31,7 +40,7 @@ public class SwerveModSubsystem extends SubsystemBase {
 
   public void setState(SwerveModuleState targetState) {
     targetState = SwerveModuleState.optimize(targetState, getAngle());
-    //set motor velocity(targetState.speedMetersPerSecond / driveConstants.kMaxSpeedMS)
+    driveMotor.set(TalonFXControlMode.PercentOutput, targetState.speedMetersPerSecond / driveConstants.kMaxSpeedMPS);
     //set turning velocity(turningPID.calculate([turning encoder position], targetState.angle.getRadians))
 
   }
