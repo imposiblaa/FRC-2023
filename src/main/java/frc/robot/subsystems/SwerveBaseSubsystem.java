@@ -5,6 +5,7 @@ import org.opencv.core.RotatedRect;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.swerveModConstants;
 import frc.robot.Constants.swerveModConstants.driveConstants;
@@ -27,13 +28,17 @@ public class SwerveBaseSubsystem extends SubsystemBase {
         swerveModConstants.mod4.drivingMotorID, swerveModConstants.mod4.turningMotorID
     );
 
+    private final ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+
 
     public SwerveBaseSubsystem() {
+
+        gyro.calibrate();
 
     }
 
     public Rotation2d getBaseAngle() {
-        Rotation2d angle = new Rotation2d(0);
+        Rotation2d angle = new Rotation2d(gyro.getAngle());
         return angle;
     }
 
