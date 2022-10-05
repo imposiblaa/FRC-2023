@@ -47,6 +47,8 @@ public final class Constants {
         public static final double kWheelBase = 24;
         public static final double kTrack = 24;
 
+        public static final double kSpeedMultiplier = 1;
+
         public static final double kMaxSpeedMPS = 5;
     }
 

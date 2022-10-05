@@ -19,7 +19,11 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final SwerveBaseSubsystem swerveBaseSubsystem = new SwerveBaseSubsystem();
+  public static final SwerveBaseSubsystem swerveBaseSubsystem = new SwerveBaseSubsystem();
+
+  public static final SwerveAbsCmd swerveAbsCommand = new SwerveAbsCmd(swerveBaseSubsystem);
+
+  public static final XboxController driveController = new XboxController(0);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -43,6 +47,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return swerveAbsCommand;
   }
 }

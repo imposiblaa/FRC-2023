@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.swerveModConstants.driveConstants;
 import frc.robot.subsystems.SwerveBaseSubsystem;
 import frc.robot.subsystems.SwerveModSubsystem;
@@ -50,7 +52,15 @@ public class SwerveAbsCmd extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(1, 2, 3, m_swerveBaseSubsystem.getBaseAngle());
+    double xAxis = RobotContainer.driveController.getRawAxis(0);
+    double yAxis = RobotContainer.driveController.getRawAxis(1);
+    double thetaAxis = RobotContainer.driveController.getRawAxis(4);
+
+
+    ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(
+      xAxis*driveConstants.kSpeedMultiplier, yAxis*driveConstants.kSpeedMultiplier, thetaAxis*driveConstants.kSpeedMultiplier,
+      m_swerveBaseSubsystem.getBaseAngle()
+    );
 
     SwerveModuleState[] targetStates = m_swerveKinematics.toSwerveModuleStates(speeds);
     m_swerveBaseSubsystem.setSwerveState(targetStates);

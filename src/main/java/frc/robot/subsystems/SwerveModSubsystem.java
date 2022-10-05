@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -22,10 +23,16 @@ public class SwerveModSubsystem extends SubsystemBase {
 
   //private final turningMotor;
   private final TalonFX driveMotor;
+
+  private final TalonSRX turningMotor;
   
   public SwerveModSubsystem(int drivingID, int turningID) {
 
     driveMotor = new TalonFX(drivingID);
+
+    turningMotor = new TalonSRX(turningID);
+
+    
 
     turningPID = new PIDController(swerveModConstants.kTurningP, swerveModConstants.kTurningI, swerveModConstants.kTurningD);
     turningPID.enableContinuousInput(-Math.PI, Math.PI);
