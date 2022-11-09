@@ -13,19 +13,19 @@ import frc.robot.Constants.swerveModConstants.driveConstants;
 public class SwerveBaseSubsystem extends SubsystemBase {
 
     private final SwerveModSubsystem frontLeftMod = new SwerveModSubsystem(
-        swerveModConstants.mod1.drivingMotorID, swerveModConstants.mod1.turningMotorID
+        swerveModConstants.mod4.drivingMotorID, swerveModConstants.mod4.turningMotorID, swerveModConstants.mod4.relEncoderID
     );
 
     private final SwerveModSubsystem backLeftMod = new SwerveModSubsystem(
-        swerveModConstants.mod2.drivingMotorID, swerveModConstants.mod2.turningMotorID
+        swerveModConstants.mod3.drivingMotorID, swerveModConstants.mod3.turningMotorID, swerveModConstants.mod3.relEncoderID
     );
 
     private final SwerveModSubsystem frontRightMod = new SwerveModSubsystem(
-        swerveModConstants.mod3.drivingMotorID, swerveModConstants.mod3.turningMotorID
+        swerveModConstants.mod1.drivingMotorID, swerveModConstants.mod1.turningMotorID, swerveModConstants.mod1.relEncoderID
     );
 
     private final SwerveModSubsystem backRightMod = new SwerveModSubsystem(
-        swerveModConstants.mod4.drivingMotorID, swerveModConstants.mod4.turningMotorID
+        swerveModConstants.mod2.drivingMotorID, swerveModConstants.mod2.turningMotorID, swerveModConstants.mod2.relEncoderID
     );
 
     private final ADXRS450_Gyro gyro = new ADXRS450_Gyro();
@@ -39,6 +39,7 @@ public class SwerveBaseSubsystem extends SubsystemBase {
 
     public Rotation2d getBaseAngle() {
         Rotation2d angle = new Rotation2d(gyro.getAngle());
+        System.out.print("\r" + "angle: " + gyro.getAngle());
         return angle;
     }
 
