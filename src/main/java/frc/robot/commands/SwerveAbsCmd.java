@@ -43,6 +43,7 @@ public class SwerveAbsCmd extends CommandBase {
       m_frontLeftLoc, m_frontRightLoc, m_backLeftLoc, m_backRightLoc
     );
 
+    addRequirements(m_swerveBaseSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -56,6 +57,7 @@ public class SwerveAbsCmd extends CommandBase {
     double yAxis = RobotContainer.driveController.getRawAxis(1);
     double thetaAxis = RobotContainer.driveController.getRawAxis(4);
 
+    System.out.print(m_swerveBaseSubsystem.getBaseAngle());
 
     ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(
       xAxis*driveConstants.kSpeedMultiplier, yAxis*driveConstants.kSpeedMultiplier, thetaAxis*driveConstants.kSpeedMultiplier,
@@ -64,6 +66,7 @@ public class SwerveAbsCmd extends CommandBase {
 
     SwerveModuleState[] targetStates = m_swerveKinematics.toSwerveModuleStates(speeds);
     m_swerveBaseSubsystem.setSwerveState(targetStates);
+
 
   }
 

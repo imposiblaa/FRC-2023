@@ -34,12 +34,12 @@ public class SwerveBaseSubsystem extends SubsystemBase {
     public SwerveBaseSubsystem() {
 
         gyro.calibrate();
+        gyro.reset();
 
     }
 
     public Rotation2d getBaseAngle() {
         Rotation2d angle = new Rotation2d(gyro.getAngle());
-        System.out.print("\r" + "angle: " + gyro.getAngle());
         return angle;
     }
 

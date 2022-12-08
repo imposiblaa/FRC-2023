@@ -15,37 +15,37 @@ package frc.robot;
 public final class Constants {
 
     public static final class swerveModConstants {
-        public static final double kTurningP = 3;
+        public static final double kTurningP = 0.5;
         public static final double kTurningI = 0;
         public static final double kTurningD = 0;
 
-        public static final double kCPR = 497;
+        public static final double kCPR = 0.0048289738430584;
 
         // Front left module
         public static final class mod1 {
-            public static final int turningMotorID = 0;
-            public static final int drivingMotorID = 0;
+            public static final int turningMotorID = 1;
+            public static final int drivingMotorID = 8;
             public static final int[] relEncoderID = {9,8};
         }
 
         // Back left module
         public static final class mod2 {
-            public static final int turningMotorID = 0;
-            public static final int drivingMotorID = 0;
+            public static final int turningMotorID = 2;
+            public static final int drivingMotorID = 7;
             public static final int[] relEncoderID = {2,3};
         }
 
         // Front right module
         public static final class mod3 {
-            public static final int turningMotorID = 0;
-            public static final int drivingMotorID = 0;
+            public static final int turningMotorID = 3;
+            public static final int drivingMotorID = 6;
             public static final int[] relEncoderID = {0,1};
         }
 
         // Back right module
         public static final class mod4 {
-            public static final int turningMotorID = 0;
-            public static final int drivingMotorID = 0;
+            public static final int turningMotorID = 4;
+            public static final int drivingMotorID = 5;
             public static final int[] relEncoderID = {7,6};
         }
 

@@ -48,7 +48,7 @@ public class SwerveModSubsystem extends SubsystemBase {
 
   private Rotation2d getAngle() {
     double angle = relativeEncoder.getDistance();
-    System.out.print(angle);
+    //System.out.print("\n" + angle);
     return new Rotation2d(angle);
   }
 
